@@ -1,4 +1,4 @@
-;;; pinyin.el --- 汉字转拼音                         -*- lexical-binding: t; -*-
+;;; pinyin.el --- Convert Hanzi to Pinyin (汉字转拼音) -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018  Xu Chunyang
 
@@ -28,7 +28,7 @@
                           "pinyin-data/pinyin.txt"
                           (file-name-directory
                            (or load-file-name buffer-file-name)))
-  "PATH to pinyin.txt.")
+  "拼音数据 pinyin.txt 的绝对路径.")
 
 (defvar pinyin-hash-table
   (let ((hash (make-hash-table
@@ -43,8 +43,13 @@
         (let ((hanzi (read (concat "#x" (match-string 1))))
               (pinyins (split-string (match-string 2) ",")))
           (puthash hanzi pinyins hash)))
-      (setq pinyin-hash-table hash)))
-  "Hash table listing Hanzi-Pinyin data.")
+      hash))
+  "拼音数据的 Hash Table, 键为汉字(字符), 值为拼音列表.")
+
+;;;###autoload
+(defun pinyin (hanzi)
+  "返回汉字的拼音列表."
+  (gethash hanzi pinyin-hash-table))
 
 (provide 'pinyin)
 ;;; pinyin.el ends here
