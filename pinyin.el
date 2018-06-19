@@ -46,10 +46,68 @@
       hash))
   "拼音数据的 Hash Table, 键为汉字(字符), 值为拼音列表.")
 
+;; http://pypinyin.readthedocs.io/zh_CN/master/api.html#style
+(defvar pinyin-styles
+  '(
+    ;; 普通风格，不带声调。如： 中国 -> ``zhong guo``
+    NORMAL
+    ;; 标准声调风格，拼音声调在韵母第一个字母上（默认风格）。如： 中国 -> ``zhōng guó``
+    TONE)
+  "拼音风格.")
+
+(defvar pinyin-phonetic-symbols
+  '((?ā "a1")
+    (?á "a2")
+    (?ǎ "a3")
+    (?à "a4")
+    (?ē "e1")
+    (?é "é2")
+    (?ě "e3")
+    (?è "e4")
+    (?ō "o1")
+    (?ó "o2")
+    (?ǒ "o3")
+    (?ò "o4")
+    (?ī "i1")
+    (?í "i2")
+    (?ǐ "i3")
+    (?ì "i4")
+    (?ū "u1")
+    (?ú "u2")
+    (?ǔ "u3")
+    (?ù "u4")
+    ;; üe
+    (?ü "v")
+    (?ǖ "v1")
+    (?ǘ "v2")
+    (?ǚ "v3")
+    (?ǜ "v4")
+    (?ń "n2")
+    (?ň "n3")
+    (?ǹ "n4")
+    ;; "ḿ": "m2"
+    (#x1E3F "m2"))
+  "带音标字符.")
+
+(defun pinyin-replace-symbol-to-no-symbol (pinyin)
+  "把带声调字符替换为没有声调的字符."
+  (mapconcat (lambda (char)
+               (let ((x (assq char pinyin-phonetic-alist)))
+                 (if x
+                     (substring (cadr x) 0 1)
+                   (string char))))
+             pinyin ""))
+
 ;;;###autoload
-(defun pinyin (hanzi)
+(cl-defun pinyin (hanzi &optional (style 'TONE))
   "返回汉字的拼音列表."
-  (gethash hanzi pinyin-hash-table))
+  (let ((pinyins (gethash hanzi pinyin-hash-table)))
+    (when pinyins
+      (unless (memq style pinyin-styles)
+        (error "未知的拼音风格: %s" style))
+      (pcase style
+        ('TONE pinyins)
+        ('NORMAL (mapcar #'pinyin-replace-symbol-to-no-symbol pinyins))))))
 
 (provide 'pinyin)
 ;;; pinyin.el ends here
