@@ -1,4 +1,4 @@
-# 汉字转拼音 [![CircleCI](https://circleci.com/gh/xuchunyang/pinyin.el.svg?style=svg)](https://circleci.com/gh/xuchunyang/pinyin.el)
+# `pinyin.el` - 汉字转拼音 [![CircleCI](https://circleci.com/gh/xuchunyang/pinyin.el.svg?style=svg)](https://circleci.com/gh/xuchunyang/pinyin.el)
 
 ## API
 
