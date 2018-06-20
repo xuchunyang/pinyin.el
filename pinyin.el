@@ -152,7 +152,6 @@
 ;;;###autoload
 (cl-defun pinyin (hanzi &optional (style 'TONE))
   "返回汉字的拼音列表."
-  (message "%S" style)
   (let ((pinyins (gethash hanzi pinyin-hash-table)))
     (when pinyins
       (mapcar (lambda (pinyin) (pinyin-to-style pinyin style))
