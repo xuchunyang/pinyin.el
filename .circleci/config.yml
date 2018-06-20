@@ -4,16 +4,9 @@ jobs:
     docker:
       - image: debian:stretch
     steps:
-      - run: apt-get update && apt-get install -yy git ssh
+      - run: apt-get update && apt-get install -yy git ssh emacs
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
-          name: Print the Current Time
-          command: date
-      - run:
-          name: Print directory
-          command: ls -lR
+      - run: make compile
+      - run: make test
