@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: debian:stretch
     steps:
+      - run: apt-get update && apt-get install -yy git ssh
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
