@@ -3,7 +3,11 @@
 ;; Copyright (C) 2018  Xu Chunyang
 
 ;; Author: Xu Chunyang <mail@xuchunyang.me>
-;; Keywords:
+;; Homepage: https://github.com/xuchunyang/pinyin.el
+;; Package-Requires: ((cl-lib "0.5") (emacs "24"))
+;; Keywords: extensions
+;; Created: 2018-06-19
+;; Version: 0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,9 +24,11 @@
 
 ;;; Commentary:
 
-;;
+;; A library for converting Hanzi to Pinyin
 
 ;;; Code:
+
+(require 'cl-lib)
 
 ;;;; 拼音数据
 
@@ -52,12 +58,21 @@
 
 ;; http://pypinyin.readthedocs.io/zh_CN/master/api.html#style
 (defvar pinyin-styles
-  '((NORMAL "普通风格，不带声调。如： 中国 -> ``zhong guo``")
-    (TONE   "标准声调风格，拼音声调在韵母第一个字母上（默认风格）。如： 中国 -> ``zhōng guó``")
-    (TONE2  "声调风格2，即拼音声调在各个韵母之后，用数字 [1-4] 进行表示。如： 中国 -> zho1ng guo2")
-    (TONE3  "声调风格3，即拼音声调在各个拼音之后，用数字 [1-4] 进行表示。如： 中国 -> zhong1 guo2")
-    (FIRST_LETTER "首字母风格，只返回拼音的首字母部分。如： 中国 -> z g"))
-  "拼音风格.")
+  '(NORMAL
+    TONE
+    TONE2
+    TONE3
+    FIRST_LETTER)
+  "拼音风格.
+
+| 风格         | 说明                                                       | 举例                |
+|--------------|------------------------------------------------------------|---------------------|
+| NORMAL       | 普通风格，不带声调                                         | 中国 -> zhong guo   |
+| TONE         | 标准声调风格，拼音声调在韵母第一个字母上（默认风格）       | 中国 -> zhōng guó   |
+| TONE2        | 声调风格2，即拼音声调在各个韵母之后，用数字 [1-4] 进行表示 | 中国 -> zho1ng guo2 |
+| TONE3        | 声调风格3，即拼音声调在各个拼音之后，用数字 [1-4] 进行表示 | 中国 -> zhong1 guo2 |
+| FIRST_LETTER | 首字母风格，只返回拼音的首字母部分                         | 中国 -> z g         |
+")
 
 (defvar pinyin-phonetic-alist
   '(("ā" "a1")
@@ -143,7 +158,7 @@
 
 (defun pinyin-to-style (pinyin style)
   "把 TONE 风格的拼音转成其它风格."
-  (if (assq style pinyin-styles)
+  (if (memq style pinyin-styles)
       (funcall (intern (format "pinyin-to-style-%s" style)) pinyin)
     (error "未知的拼音风格: %s" style)))
 
