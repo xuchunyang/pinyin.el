@@ -147,6 +147,8 @@
       (funcall (intern (format "pinyin-to-style-%s" style)) pinyin)
     (error "未知的拼音风格: %s" style)))
 
+;;;; API
+
 ;;;###autoload
 (cl-defun pinyin (hanzi &optional (style 'TONE))
   "返回汉字的拼音列表."
