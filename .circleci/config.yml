@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: debian:stretch
     steps:
-      - run: sudo apt-get update && sudo apt-get install -yy git ssh emacs-nox make
+      - run: apt-get update && apt-get install -yy git ssh emacs-nox make
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
