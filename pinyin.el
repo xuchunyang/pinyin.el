@@ -109,9 +109,7 @@
              ;; o1
              (phonetic2 (cadr (assoc phonetic pinyin-phonetic-alist)))
              ;; o
-             (symbol (substring phonetic2 0 1))
-             ;; 1
-             (tone (substring phonetic2 1)))
+             (symbol (substring phonetic2 0 1)))
         (replace-match symbol t t pinyin))
     pinyin))
 
@@ -121,11 +119,7 @@
       (let* (;; ō
              (phonetic (match-string 0 pinyin)) ; ō
              ;; o1
-             (phonetic2 (cadr (assoc phonetic pinyin-phonetic-alist)))
-             ;; o
-             (symbol (substring phonetic2 0 1))
-             ;; 1
-             (tone (substring phonetic2 1)))
+             (phonetic2 (cadr (assoc phonetic pinyin-phonetic-alist))))
         (replace-match phonetic2 t t pinyin))
     pinyin))
 
