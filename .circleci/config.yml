@@ -5,6 +5,8 @@ jobs:
       - image: debian:stretch
     steps:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
       - run:
           name: Greeting
           command: echo Hello, world.
