@@ -149,7 +149,7 @@
 
 (defun pinyin-to-style (pinyin style)
   "把 TONE 风格的拼音转成其它风格."
-  (if (assq 'TONE pinyin-styles)
+  (if (assq style pinyin-styles)
       (funcall (intern (format "pinyin-to-style-%s" style)) pinyin)
     (error "未知的拼音风格: %s" style)))
 
