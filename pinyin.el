@@ -55,7 +55,8 @@
   '((NORMAL "普通风格，不带声调。如： 中国 -> ``zhong guo``")
     (TONE   "标准声调风格，拼音声调在韵母第一个字母上（默认风格）。如： 中国 -> ``zhōng guó``")
     (TONE2  "声调风格2，即拼音声调在各个韵母之后，用数字 [1-4] 进行表示。如： 中国 -> zho1ng guo2")
-    (TONE3  "声调风格3，即拼音声调在各个拼音之后，用数字 [1-4] 进行表示。如： 中国 -> zhong1 guo2"))
+    (TONE3  "声调风格3，即拼音声调在各个拼音之后，用数字 [1-4] 进行表示。如： 中国 -> zhong1 guo2")
+    (FIRST_LETTER "首字母风格，只返回拼音的首字母部分。如： 中国 -> z g"))
   "拼音风格.")
 
 (defvar pinyin-phonetic-alist
@@ -141,6 +142,10 @@
              (tone (substring phonetic2 1)))
         (concat (replace-match symbol t t pinyin) tone))
     pinyin))
+
+(defun pinyin-to-style-FIRST_LETTER (pinyin)
+  "返回拼音首字母."
+  (substring pinyin 0 1))
 
 (defun pinyin-to-style (pinyin style)
   "把 TONE 风格的拼音转成其它风格."
