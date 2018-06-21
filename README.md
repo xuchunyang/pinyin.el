@@ -30,3 +30,13 @@
 | TONE2        | 声调风格2，即拼音声调在各个韵母之后，用数字 [1-4] 进行表示 | 中国 -> zho1ng guo2 |
 | TONE3        | 声调风格3，即拼音声调在各个拼音之后，用数字 [1-4] 进行表示 | 中国 -> zhong1 guo2 |
 | FIRST_LETTER | 首字母风格，只返回拼音的首字母部分                         | 中国 -> z g         |
+
+
+## 拼音数据
+
+[mozillazg/pinyin-data: 汉字拼音数据](https://github.com/mozillazg/pinyin-data) 下的 `pinyin.txt`
+
+
+## 相关项目
+
+- [mozillazg/python-pinyin: 汉字转拼音(pypinyin)](https://github.com/mozillazg/python-pinyin)
